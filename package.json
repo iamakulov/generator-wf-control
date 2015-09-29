@@ -2,7 +2,6 @@
   "name": "generator-wf-control",
   "version": "1.0.0",
   "description": "Generate a basic WF control",
-  "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
