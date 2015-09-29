@@ -9,7 +9,7 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "author": "Ivan Akulov <gxoptg@gmail.com>",
+  "author": "Ivan Akulov <gxoptg@gmail.com> (http://ivanakulov.name)",
   "license": "MIT",
   "dependencies": {
     "yeoman-generator": "^0.20.3"
