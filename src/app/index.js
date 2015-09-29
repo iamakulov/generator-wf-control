@@ -5,7 +5,6 @@ export default class WfControlGenerator extends Base {
     constructor(...args) {
         super(...args);
 
-        // Define arguments
         this.argument('controlName', {
             desc: 'WF control name',
             type: String,
