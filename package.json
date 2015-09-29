@@ -1,0 +1,23 @@
+{
+  "name": "generator-wf-control",
+  "version": "1.0.0",
+  "description": "Generate a basic WF control",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "Ivan Akulov <gxoptg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "yeoman-generator": "^0.20.3"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "mocha": "^2.3.3"
+  }
+}

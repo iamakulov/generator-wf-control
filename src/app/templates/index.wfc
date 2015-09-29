@@ -1,0 +1,10 @@
+{% <script type="text/javascript"> var meta = {
+    require: [
+        // List your requirements here
+    ]
+}; </script> /}
+
+
+<div __api=${@api.<%= jsControlName %>}>
+    <!-- Write the control template here -->
+</div>
