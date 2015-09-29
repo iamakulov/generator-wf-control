@@ -17,4 +17,4 @@ Or
 
 ## License
 
-MIT © [Ivan Akulov](http://ivanakulov.name), 2015
+MIT Â© [Ivan Akulov](http://ivanakulov.name), 2015
