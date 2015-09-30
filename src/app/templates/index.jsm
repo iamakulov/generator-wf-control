@@ -15,10 +15,10 @@ function <%= jsControlName %>() {
 
     this.__onstart = function (ctx) {
         this.data = ctx.data;
-    }
+    };
 
     // ## Uncomment if necessary
     // this.__onend = function () {
     //
-    // }
+    // };
 }
