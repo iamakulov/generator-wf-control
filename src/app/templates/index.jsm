@@ -5,7 +5,7 @@
 // var e3suiApi = $module.require("~/epam/e3sui/js/e3suiApi.jsm").jsm.api;
 
 
-$module.export({
+$module.extend({
     <%= jsControlName %>: new <%= jsControlName %>()
 });
 
