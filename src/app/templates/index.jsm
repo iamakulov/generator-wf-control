@@ -9,7 +9,10 @@ $module.export({
     <%= jsControlName %>: new <%= jsControlName %>()
 });
 
-
+/**
+ * @constructor
+ * @extends {HTMLElement}
+ */
 function <%= jsControlName %>() {
     this.data = new Wf.AutoRwPropDef();
 
