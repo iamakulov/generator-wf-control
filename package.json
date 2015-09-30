@@ -4,6 +4,7 @@
   "description": "Generate a basic WF control",
   "repository": "gxoptg/generator-wf-control",
   "scripts": {
+    "build": "gulp build",
     "test": "mocha"
   },
   "keywords": [
