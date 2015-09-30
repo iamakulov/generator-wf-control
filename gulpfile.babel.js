@@ -25,5 +25,8 @@ gulp.task('watch', function () {
     gulp.watch(paths.templates, ['copy-templates']);
 });
 
+// Build task
+gulp.task('build', ['compile', 'copy-templates']);
+
 // Default task
-gulp.task('default', ['compile', 'copy-templates']);
+gulp.task('default', ['build']);
