@@ -1,4 +1,5 @@
 import { Base } from 'yeoman-generator';
+import path from 'path';
 
 export default class WfControlGenerator extends Base {
     constructor(...args) {
@@ -13,12 +14,14 @@ export default class WfControlGenerator extends Base {
 
     prompting() {
         if (!this.controlName) {
+            let currentDir = path.basename(this.destinationRoot());
             let done = this.async();
+
             this.prompt({
                 message: 'How would you like to name the control?',
                 type: 'input',
                 name: 'controlName',
-                default: 'control'
+                default: currentDir
             }, answer => {
                 this.controlName = answer.controlName;
                 done();

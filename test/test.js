@@ -49,15 +49,17 @@ describe('default generator', function () {
     });
 
     describe('when falling back to default control name', function () {
-        const controlName = 'control';
-        const jsControlName = 'control';
+        const directoryName = './test-fallbackControlName';
+        const controlName = 'test-fallbackControlName';
+        const jsControlName = 'test_fallbackControlName';
 
         before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
+                .inDir(directoryName)
                 .on('end', done);
         });
 
-        it('should create three files named after control', function () {
+        it('should create three files named after the control’s directory', function () {
             assertFilesCreated(controlName);
         });
 
