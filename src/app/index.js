@@ -1,5 +1,4 @@
 import { Base } from 'yeoman-generator';
-import _ from 'lodash';
 
 export default class WfControlGenerator extends Base {
     constructor(...args) {
