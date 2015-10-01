@@ -12,8 +12,8 @@ export default class WfControlGenerator extends Base {
     }
 
     prompting() {
-        if (this.controlName == null) {
-            var done = this.async();
+        if (!this.controlName) {
+            let done = this.async();
             this.prompt({
                 message: 'How would you like to name the control?',
                 type: 'input',
