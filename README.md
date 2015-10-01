@@ -1,5 +1,7 @@
 # generator-wf-control
 
+[![Build Status](https://travis-ci.org/gxoptg/generator-wf-control.svg)](https://travis-ci.org/gxoptg/generator-wf-control)
+
 Generate control files for (currently proprietary) WF framework.
 
 ## Install
