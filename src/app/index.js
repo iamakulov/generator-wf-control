@@ -14,14 +14,14 @@ export default class WfControlGenerator extends Base {
 
     prompting() {
         if (!this.controlName) {
-            let currentDir = path.basename(this.destinationRoot());
             let done = this.async();
 
+            let currentDirName = path.basename(this.destinationRoot());
             this.prompt({
                 message: 'How would you like to name the control?',
                 type: 'input',
                 name: 'controlName',
-                default: currentDir
+                default: currentDirName
             }, answer => {
                 this.controlName = answer.controlName;
                 done();
