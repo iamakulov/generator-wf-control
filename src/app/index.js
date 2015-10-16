@@ -14,18 +14,7 @@ export default class WfControlGenerator extends Base {
 
     prompting() {
         if (!this.controlName) {
-            let done = this.async();
-
-            let currentDirName = path.basename(this.destinationRoot());
-            this.prompt({
-                message: 'How would you like to name the control?',
-                type: 'input',
-                name: 'controlName',
-                default: currentDirName
-            }, answer => {
-                this.controlName = answer.controlName;
-                done();
-            });
+            this._promptControlName();
         }
     }
 
@@ -39,6 +28,21 @@ export default class WfControlGenerator extends Base {
                 controlName: this.controlName,
                 jsControlName: this.jsControlName
             });
+        });
+    }
+
+    _promptControlName() {
+        let done = this.async();
+
+        let currentDirName = path.basename(this.destinationRoot());
+        this.prompt({
+            message: 'How would you like to name the control?',
+            type: 'input',
+            name: 'controlName',
+            default: currentDirName
+        }, answer => {
+            this.controlName = answer.controlName;
+            done();
         });
     }
 
