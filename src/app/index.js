@@ -33,40 +33,39 @@ export default class WfControlGenerator extends Base {
         this.jsControlName = this.controlName.replace('-', '_');
     }
 
-    get writing() {
-        return {
-            template() {
-                this.fs.copyTpl(
-                    this.templatePath('index.wfc'),
-                    this.destinationPath(this.controlName + '.wfc'),
-                    {
-                        controlName: this.controlName,
-                        jsControlName: this.jsControlName
-                    }
-                );
-            },
+    writing() {
+        ['wfc', 'less', 'jsm'].forEach(kind => {
+            this._writeTemplate(kind, {
+                controlName: this.controlName,
+                jsControlName: this.jsControlName
+            });
+        });
+    }
 
-            less() {
-                this.fs.copyTpl(
-                    this.templatePath('index.less'),
-                    this.destinationPath(this.controlName + '.less'),
-                    {
-                        controlName: this.controlName,
-                        jsControlName: this.jsControlName
-                    }
-                );
-            },
+    _writeTemplate(kind, data) {
+        var templateConfig = WfControlGenerator._templateConfig[kind];
+        let templateFile = templateConfig.file;
+        let targetExtension = templateConfig.targetExtension;
 
-            js() {
-                this.fs.copyTpl(
-                    this.templatePath('index.jsm'),
-                    this.destinationPath(this.controlName + '.jsm'),
-                    {
-                        controlName: this.controlName,
-                        jsControlName: this.jsControlName
-                    }
-                );
-            }
-        };
+        this.fs.copyTpl(
+            this.templatePath(templateFile),
+            this.destinationPath(this.controlName + targetExtension),
+            data
+        );
     }
 }
+
+WfControlGenerator._templateConfig = {
+    'wfc': {
+        file: 'index.wfc',
+        targetExtension: '.wfc'
+    },
+    'less': {
+        file: 'index.less',
+        targetExtension: '.less'
+    },
+    'jsm': {
+        file: 'index.jsm',
+        targetExtension: '.jsm'
+    }
+};
