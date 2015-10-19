@@ -71,9 +71,28 @@ describe('default generator', function () {
             assertWfcJsmContainAdaptedControlName(controlName, jsControlName);
         });
     });
+
+    describe('when passing an invalid control name as an argument', function () {
+        const controlName = 'test-controlName.abc';
+
+        it('should fail with an error', function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .withArguments([controlName])
+                .on('error', function () {
+                    assert(true);
+                    done();
+                })
+                .on('end', function () {
+                    assert(false);
+                    done();
+                });
+        });
+    });
+
+    describe('when passing an invalid control name in a prompt', function () {
+        it('should re-prompt for another control name');
+    });
 });
-
-
 
 
 function assertFilesCreated(controlName) {

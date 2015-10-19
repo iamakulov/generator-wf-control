@@ -12,6 +12,14 @@ export default class WfControlGenerator extends Base {
         });
     }
 
+    initializing() {
+        // This check should be performed in initializing() method instead of the constructor
+        // because this.env.error() call in the constructor can’t be caught with Mocha
+        if (!WfControlGenerator._validateControlName(this.controlName)) {
+            this.env.error(WfControlGenerator._validationErrorMessage);
+        }
+    }
+
     prompting() {
         if (!this.controlName) {
             this._promptControlName();
@@ -39,7 +47,9 @@ export default class WfControlGenerator extends Base {
             message: 'How would you like to name the control?',
             type: 'input',
             name: 'controlName',
-            default: currentDirName
+            default: currentDirName,
+            // `validate` callback should return `true` when everything is OK and error message otherwise
+            validate: value => WfControlGenerator._validateControlName(value) ? true : WfControlGenerator._validationErrorMessage
         }, answer => {
             this.controlName = answer.controlName;
             done();
@@ -57,6 +67,10 @@ export default class WfControlGenerator extends Base {
             data
         );
     }
+
+    static _validateControlName(name) {
+        return /^[a-z0-9_-]+$/i.test(name);
+    }
 }
 
 WfControlGenerator._templateConfig = {
@@ -73,3 +87,5 @@ WfControlGenerator._templateConfig = {
         targetExtension: '.jsm'
     }
 };
+
+WfControlGenerator._validationErrorMessage = 'The control name is invalid. It must only contain latin letters, digits, underscore and dash.';
