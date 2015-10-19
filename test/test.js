@@ -3,8 +3,8 @@ import path from 'path';
 
 describe('default generator', function () {
     describe('when passing a custom control name as an argument', function () {
-        const controlName = 'test-controlName';
-        const jsControlName = 'test_controlName';
+        const controlName = 'test-controlName_123';
+        const jsControlName = 'test_controlName_123';
 
         before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
@@ -26,8 +26,8 @@ describe('default generator', function () {
     });
 
     describe('when passing a custom control name in a prompt', function () {
-        const controlName = 'test-controlName';
-        const jsControlName = 'test_controlName';
+        const controlName = 'test-controlName_123';
+        const jsControlName = 'test_controlName_123';
 
         before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
@@ -49,9 +49,9 @@ describe('default generator', function () {
     });
 
     describe('when falling back to default control name', function () {
-        const directoryName = './test-fallbackControlName';
-        const controlName = 'test-fallbackControlName';
-        const jsControlName = 'test_fallbackControlName';
+        const directoryName = './test-fallbackControlName_123';
+        const controlName = 'test-fallbackControlName_123';
+        const jsControlName = 'test_fallbackControlName_123';
 
         before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
