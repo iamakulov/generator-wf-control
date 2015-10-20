@@ -31,7 +31,7 @@ export default class WfControlGenerator extends Base {
     }
 
     writing() {
-        ['wfc', 'less', 'jsm'].forEach(kind => {
+        ['generic/wfc', 'generic/less', 'generic/jsm'].forEach(kind => {
             this._writeTemplate(kind, {
                 controlName: this.controlName,
                 jsControlName: this.jsControlName
@@ -57,7 +57,9 @@ export default class WfControlGenerator extends Base {
     }
 
     _writeTemplate(kind, data) {
-        var templateConfig = WfControlGenerator._templateConfig[kind];
+        let [kindGroup, kindName] = kind.split('/');
+
+        let templateConfig = WfControlGenerator._templateConfig[kindGroup][kindName];
         let templateFile = templateConfig.file;
         let targetExtension = templateConfig.targetExtension;
 
@@ -74,17 +76,19 @@ export default class WfControlGenerator extends Base {
 }
 
 WfControlGenerator._templateConfig = {
-    'wfc': {
-        file: 'index.wfc',
-        targetExtension: '.wfc'
-    },
-    'less': {
-        file: 'index.less',
-        targetExtension: '.less'
-    },
-    'jsm': {
-        file: 'index.jsm',
-        targetExtension: '.jsm'
+    'generic': {
+        'wfc': {
+            file: 'generic/index.wfc',
+            targetExtension: '.wfc'
+        },
+        'less': {
+            file: 'generic/index.less',
+            targetExtension: '.less'
+        },
+        'jsm': {
+            file: 'generic/index.jsm',
+            targetExtension: '.jsm'
+        }
     }
 };
 
