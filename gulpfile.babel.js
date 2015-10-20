@@ -3,7 +3,7 @@ import babel from 'gulp-babel';
 
 const paths = {
     es6: 'src/**/*.js',
-    templates: 'src/**/templates/*'
+    templates: 'src/**/templates/**/*'
 };
 
 // Compile ES2015 templates
