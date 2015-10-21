@@ -1,3 +1,4 @@
+import 'babel-core/polyfill';
 import { Base } from 'yeoman-generator';
 import path from 'path';
 
@@ -20,10 +21,14 @@ export default class WfControlGenerator extends Base {
         }
     }
 
-    prompting() {
+    async prompting() {
+        let done = this.async();
+
         if (!this.controlName) {
-            this._promptControlName();
+            await this._promptControlName();
         }
+
+        done();
     }
 
     configuring() {
@@ -40,19 +45,19 @@ export default class WfControlGenerator extends Base {
     }
 
     _promptControlName() {
-        let done = this.async();
-
-        let currentDirName = path.basename(this.destinationRoot());
-        this.prompt({
-            message: 'How would you like to name the control?',
-            type: 'input',
-            name: 'controlName',
-            default: currentDirName,
-            // `validate` callback should return `true` when everything is OK and error message otherwise
-            validate: value => WfControlGenerator._validateControlName(value) ? true : WfControlGenerator._validationErrorMessage
-        }, answer => {
-            this.controlName = answer.controlName;
-            done();
+        return new Promise(resolve => {
+            let currentDirName = path.basename(this.destinationRoot());
+            this.prompt({
+                message: 'How would you like to name the control?',
+                type: 'input',
+                name: 'controlName',
+                default: currentDirName,
+                // `validate` callback should return `true` when everything is OK and error message otherwise
+                validate: value => WfControlGenerator._validateControlName(value) ? true : WfControlGenerator._validationErrorMessage
+            }, answer => {
+                this.controlName = answer.controlName;
+                resolve();
+            });
         });
     }
 
