@@ -1,6 +1,7 @@
 import 'babel-core/polyfill';
 import { Base } from 'yeoman-generator';
 import path from 'path';
+import _ from 'lodash';
 
 export default class WfControlGenerator extends Base {
     constructor(...args) {
@@ -10,6 +11,12 @@ export default class WfControlGenerator extends Base {
             desc: 'WF control name',
             type: String,
             required: false
+        });
+
+        this.option('type', {
+            desc: 'The type of WF control. Could be equal to `generic`',
+            type: String,
+            alias: 't'
         });
     }
 
@@ -28,6 +35,10 @@ export default class WfControlGenerator extends Base {
             await this._promptControlName();
         }
 
+        if (!this.options.type) {
+            await this._promptControlType();
+        }
+
         done();
     }
 
@@ -36,7 +47,10 @@ export default class WfControlGenerator extends Base {
     }
 
     writing() {
-        ['generic/wfc', 'generic/less', 'generic/jsm'].forEach(kind => {
+        let controlType = this.options.type;
+        let templateFiles = Object.keys(WfControlGenerator._templateConfig[controlType]).map(kindName => `${controlType}/${kindName}`);
+
+        templateFiles.forEach(kind => {
             this._writeTemplate(kind, {
                 controlName: this.controlName,
                 jsControlName: this.jsControlName
@@ -56,6 +70,20 @@ export default class WfControlGenerator extends Base {
                 validate: value => WfControlGenerator._validateControlName(value) ? true : WfControlGenerator._validationErrorMessage
             }, answer => {
                 this.controlName = answer.controlName;
+                resolve();
+            });
+        });
+    }
+
+    _promptControlType() {
+        return new Promise(resolve => {
+            this.prompt({
+                message: 'What type does the control have?',
+                type: 'list',
+                choices: _.keys(WfControlGenerator._templateConfig),
+                name: 'type'
+            }, answer => {
+                this.options.type = answer.type;
                 resolve();
             });
         });
