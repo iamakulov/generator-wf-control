@@ -24,7 +24,7 @@ export default class WfControlGenerator extends Base {
         // These checks should be performed in initializing() method instead of the constructor
         // because this.env.error() call in the constructor can’t be caught with Mocha
 
-        if (!WfControlGenerator._validateControlName(this.controlName)) {
+        if (this.controlName && !WfControlGenerator._validateControlName(this.controlName)) {
             this.env.error(WfControlGenerator._validationErrorMessages.controlName);
         }
 
