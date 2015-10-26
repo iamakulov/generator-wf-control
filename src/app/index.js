@@ -21,10 +21,15 @@ export default class WfControlGenerator extends Base {
     }
 
     initializing() {
-        // This check should be performed in initializing() method instead of the constructor
+        // These checks should be performed in initializing() method instead of the constructor
         // because this.env.error() call in the constructor can’t be caught with Mocha
+
         if (!WfControlGenerator._validateControlName(this.controlName)) {
-            this.env.error(WfControlGenerator._validationErrorMessage);
+            this.env.error(WfControlGenerator._validationErrorMessages.controlName);
+        }
+
+        if (this.options.type && !WfControlGenerator._validateControlType(this.options.type)) {
+            this.env.error(WfControlGenerator._validationErrorMessages.controlType);
         }
     }
 
@@ -106,6 +111,10 @@ export default class WfControlGenerator extends Base {
     static _validateControlName(name) {
         return /^[a-z0-9_-]+$/i.test(name);
     }
+
+    static _validateControlType(type) {
+        return Object.keys(WfControlGenerator._templateConfig).includes(type);
+    }
 }
 
 WfControlGenerator._templateConfig = {
@@ -139,4 +148,7 @@ WfControlGenerator._templateConfig = {
     }
 };
 
-WfControlGenerator._validationErrorMessage = 'The control name is invalid. It must only contain latin letters, digits, underscore and dash.';
+WfControlGenerator._validationErrorMessages = {
+    controlName: 'The control name is invalid. It must only contain latin letters, digits, underscore and dash.',
+    controlType: 'The control type is invalid. Possible values are `generic` and `informer`.'
+};

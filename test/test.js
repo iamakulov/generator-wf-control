@@ -106,6 +106,20 @@ describe('default generator', () => {
             });
         });
 
-        it('should fail with an error when an invalid control type is passed as an option');
+        it('should fail with an error when an invalid control type is passed as an option', done => {
+            let controlType = 'invalidType123';
+
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .withArguments([defaultName])
+                .withOptions({type: controlType})
+                .on('error', e => {
+                    assert(e.message.includes('control type is invalid'));
+                    done();
+                })
+                .on('end', () => {
+                    assert(false);
+                    done();
+                });
+        });
     });
 });
