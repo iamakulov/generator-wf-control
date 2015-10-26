@@ -110,7 +110,7 @@ export default class WfControlGenerator extends Base {
 
 WfControlGenerator._templateConfig = {
     'generic': {
-        'wfc': {
+        'wf': {
             file: 'generic/index.wfc',
             targetExtension: '.wfc'
         },
@@ -124,7 +124,7 @@ WfControlGenerator._templateConfig = {
         }
     },
     'informer': {
-        'wfec': {
+        'wf': {
             file: 'informer/index.wfec',
             targetExtension: '.wfec'
         },
