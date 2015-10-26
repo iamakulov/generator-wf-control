@@ -49,8 +49,8 @@ describe('default generator', () => {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .withArguments([controlName])
                 .withOptions({type: defaultType})
-                .on('error', () => {
-                    assert(true);
+                .on('error', e => {
+                    assert(e.message.includes('control name is invalid'));
                     done();
                 })
                 .on('end', () => {
