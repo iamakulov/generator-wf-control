@@ -1,109 +1,111 @@
 import { test as helpers, assert } from 'yeoman-generator';
 import path from 'path';
 
-describe('default generator', function () {
-    describe('when passing a custom control name as an argument', function () {
-        const controlName = 'test-controlName_123';
-        const jsControlName = 'test_controlName_123';
+describe('default generator', () => {
+    describe('control name tests', () => {
+        const defaultType = 'generic';
 
-        before(function (done) {
+        it('should accept control name as an argument', done => {
+            let controlName = 'test-controlName_123';
+
             helpers.run(path.join(__dirname, '../generators/app'))
                 .withArguments([controlName])
-                .on('end', done);
+                .withOptions({type: defaultType})
+                .on('end', () => {
+                    assert.file([controlName + '.wfc', controlName + '.less', controlName + '.jsm']);
+                    done();
+                });
         });
 
-        it('should create three files named after control', function () {
-            assertFilesCreated(controlName);
-        });
+        it('should accept control name in a prompt', done => {
+            let controlName = 'test-controlName_123';
 
-        it('should include original control name into .less file', function () {
-            assertLessContainsControlName(controlName);
-        });
-
-        it('should include js-adapted control name into .wfc and .jsm file', function () {
-            assertWfcJsmContainAdaptedControlName(controlName, jsControlName);
-        });
-    });
-
-    describe('when passing a custom control name in a prompt', function () {
-        const controlName = 'test-controlName_123';
-        const jsControlName = 'test_controlName_123';
-
-        before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
-                .withPrompts({ controlName })
-                .on('end', done);
+                .withPrompts({controlName})
+                .withOptions({type: defaultType})
+                .on('end', () => {
+                    assert.file([controlName + '.wfc', controlName + '.less', controlName + '.jsm']);
+                    done();
+                });
         });
 
-        it('should create three files named after control', function () {
-            assertFilesCreated(controlName);
-        });
+        it('should fall back to directory name when nothing is passed', done => {
+            let controlName = 'test-controlName_123';
+            let directoryName = './test-controlName_123';
 
-        it('should include original control name into .less file', function () {
-            assertLessContainsControlName(controlName);
-        });
-
-        it('should include js-adapted control name into .wfc and .jsm file', function () {
-            assertWfcJsmContainAdaptedControlName(controlName, jsControlName);
-        });
-    });
-
-    describe('when falling back to default control name', function () {
-        const directoryName = './test-fallbackControlName_123';
-        const controlName = 'test-fallbackControlName_123';
-        const jsControlName = 'test_fallbackControlName_123';
-
-        before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inDir(directoryName)
-                .on('end', done);
+                .withOptions({type: defaultType})
+                .on('end', () => {
+                    assert.file([controlName + '.wfc', controlName + '.less', controlName + '.jsm']);
+                    done();
+                });
         });
 
-        it('should create three files named after the control’s directory', function () {
-            assertFilesCreated(controlName);
-        });
 
-        it('should include original control name into .less file', function () {
-            assertLessContainsControlName(controlName);
-        });
+        it('should fail with an error when an invalid control name is passed as an argument', done => {
+            let controlName = 'test-controlName_123.abc';
 
-        it('should include js-adapted control name into .wfc and .jsm file', function () {
-            assertWfcJsmContainAdaptedControlName(controlName, jsControlName);
-        });
-    });
-
-    describe('when passing an invalid control name as an argument', function () {
-        const controlName = 'test-controlName.abc';
-
-        it('should fail with an error', function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .withArguments([controlName])
-                .on('error', function () {
+                .withOptions({type: defaultType})
+                .on('error', () => {
                     assert(true);
                     done();
                 })
-                .on('end', function () {
+                .on('end', () => {
                     assert(false);
                     done();
                 });
         });
+
+        it('should re-prompt for another control name when an invalid one is passed in a prompt');
     });
 
-    describe('when passing an invalid control name in a prompt', function () {
-        it('should re-prompt for another control name');
+    describe('control type tests', () => {
+        const defaultName = 'test-controlName_123';
+
+        it('should accept control type as an option', done => {
+            let controlType = 'generic';
+
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .withArguments([defaultName])
+                .withOptions({type: controlType})
+                .on('end', () => {
+                    assert.file([defaultName + '.wfc', defaultName + '.less', defaultName + '.jsm']);
+                    done();
+                });
+        });
+
+        it('should accept control type in a prompt', done => {
+            let controlType = 'generic';
+
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .withArguments([defaultName])
+                .withPrompts({type: controlType})
+                .on('end', () => {
+                    assert.file([defaultName + '.wfc', defaultName + '.less', defaultName + '.jsm']);
+                    done();
+                });
+        });
+
+        let controlFiles = {
+            'generic': ['.wfc', '.less', '.jsm'],
+            'informer': ['.wfec', '.less', '.jsm']
+        };
+
+        Object.keys(controlFiles).forEach(controlType => {
+            it(`should generate specific files for '${controlType}' control type`, done => {
+                helpers.run(path.join(__dirname, '../generators/app'))
+                    .withArguments([defaultName])
+                    .withOptions({type: controlType})
+                    .on('end', () => {
+                        assert.file(controlFiles[controlType].map(ext => defaultName + ext));
+                        done();
+                    });
+            });
+        });
+
+        it('should fail with an error when an invalid control type is passed as an option');
     });
 });
-
-
-function assertFilesCreated(controlName) {
-    assert.file([controlName + '.wfc', controlName + '.less', controlName + '.jsm']);
-}
-
-function assertLessContainsControlName(controlName) {
-    assert.fileContent(controlName + '.less', controlName);
-}
-
-function assertWfcJsmContainAdaptedControlName(controlName, jsControlName) {
-    assert.fileContent(controlName + '.wfc', jsControlName);
-    assert.fileContent(controlName + '.jsm', jsControlName);
-}
