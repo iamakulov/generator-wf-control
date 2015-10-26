@@ -15,8 +15,7 @@ export default class WfControlGenerator extends Base {
 
         this.option('type', {
             desc: 'The type of WF control. Could be equal to `generic` or `informer`',
-            type: String,
-            alias: 't'
+            type: String
         });
     }
 
