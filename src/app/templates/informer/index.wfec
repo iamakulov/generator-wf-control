@@ -1,0 +1,27 @@
+{% <script type="text/javascript"> var meta = {
+    fills: [{
+        target: "~/epam/people/portlets/profile/eppplGenericPersonalProfile-informers",
+        order: -1
+    }],
+    config: {
+        "enabled": true,
+        "visibility": "open",
+        "order": 230
+    },
+    require: [
+        "~/epam/e3sui/controls/e3suiPortlets/e3suiStylishInformers-plain.less"
+    ]
+}; </script> /}
+
+{> "~/epam/e3sui/controls/e3suiPortlets/e3suiStylishInformer"
+    informerId=${@template.id.inSiteQid}
+    informerTitle="Specify the informer title here"
+    flipEnabled=false
+    quickViewEnabled=false
+}
+ 
+{:bodyFront}
+    <div __api=${@api.<%= jsControlName %>} class="e3suiStylishInformer-plain">
+        <!-- Write the informer template here -->
+    </div>
+{/>}

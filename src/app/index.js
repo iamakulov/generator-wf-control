@@ -14,7 +14,7 @@ export default class WfControlGenerator extends Base {
         });
 
         this.option('type', {
-            desc: 'The type of WF control. Could be equal to `generic`',
+            desc: 'The type of WF control. Could be equal to `generic` or `informer`',
             type: String,
             alias: 't'
         });
@@ -120,6 +120,20 @@ WfControlGenerator._templateConfig = {
         },
         'jsm': {
             file: 'generic/index.jsm',
+            targetExtension: '.jsm'
+        }
+    },
+    'informer': {
+        'wfec': {
+            file: 'informer/index.wfec',
+            targetExtension: '.wfec'
+        },
+        'less': {
+            file: 'informer/index.less',
+            targetExtension: '.less'
+        },
+        'jsm': {
+            file: 'informer/index.jsm',
             targetExtension: '.jsm'
         }
     }
