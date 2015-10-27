@@ -4,6 +4,8 @@
 
 Generate control files for (currently proprietary) WF framework.
 
+![Demonstration Gif](http://i.imgur.com/SCCNxAJ.gif)
+
 
 ## Install
 
