@@ -71,7 +71,7 @@ export default class WfControlGenerator extends Base {
                 name: 'controlName',
                 default: currentDirName,
                 // `validate` callback should return `true` when everything is OK and error message otherwise
-                validate: value => WfControlGenerator._validateControlName(value) ? true : WfControlGenerator._validationErrorMessage
+                validate: value => WfControlGenerator._validateControlName(value) ? true : WfControlGenerator._validationErrorMessages.controlName
             }, answer => {
                 this.controlName = answer.controlName;
                 resolve();
