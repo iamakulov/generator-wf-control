@@ -13,7 +13,7 @@
     "yeoman-generator",
     "wf"
   ],
-  "author": "Ivan Akulov <gxoptg@gmail.com> (http://ivanakulov.name)",
+  "author": "Ivan Akulov <me@iamakulov.com> (http://iamakulov.com)",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^5.8.25",
