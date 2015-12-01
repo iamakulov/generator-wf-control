@@ -1,6 +1,6 @@
 # generator-wf-control
 
-[![Build Status](https://travis-ci.org/gxoptg/generator-wf-control.svg)](https://travis-ci.org/gxoptg/generator-wf-control)
+[![Build Status](https://travis-ci.org/iamakulov/generator-wf-control.svg)](https://travis-ci.org/iamakulov/generator-wf-control)
 
 Generate control files for (currently proprietary) WF framework.
 
@@ -41,4 +41,4 @@ Currently supported control types are `generic` and `informer`. Submit an issue 
 
 ## License
 
-MIT © [Ivan Akulov](http://ivanakulov.name), 2015
+MIT © [Ivan Akulov](http://iamakulov.com), 2015
